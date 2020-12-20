@@ -21,8 +21,8 @@ userset="username@btinternet.com"
 passset="password"
 actionUrl="https://www.btwifi.com:8443/tbbLogon"
 queryUrl="https://www.btwifi.com:8443/home"
-scriptVersion="0.0"
-iterations="10"
+scriptVersion="0.1"
+iterations=10
 DBG=true
 
 
@@ -59,7 +59,7 @@ fi
 
 i=$[$i+1]
 
-$DBG && logger -t "Sleeping for 5s..
+$DBG && logger -t "Sleeping for 5s.."
 
 sleep 5
 
