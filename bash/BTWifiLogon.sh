@@ -17,12 +17,12 @@
 #to schedule the script via cron to run every minute and you are finding that you are disconnected in less than a minute and
 #are a little impatient :) 
 
-userset="username@btinternet.com"
-passset="password"
+username="username@btinternet.com"
+password="password"
 actionUrl="https://www.btwifi.com:8443/tbbLogon"
 queryUrl="https://www.btwifi.com:8443/home"
-scriptVersion="0.1"
-iterations=10
+scriptVersion="0.5"
+iterations="5"
 DBG=true
 
 
@@ -30,6 +30,7 @@ i="0"
 
 
 $DBG && echo && logger "BT WiFi Connect. Script ver: $scriptVersion" 
+
 
 IS_LOGGED_IN=$(curl $queryUrl --max-time 8 2>/dev/null | grep "accountLogoff")
 MAYBE_LOGGED_IN=$(curl $queryUrl --max-time 8 2>/dev/null | grep "You may have lost your connection to the BTWiFi signal.")
@@ -46,7 +47,7 @@ do
 	[[ $DBG ]] && echo && logger "BT: Not logged in. Attempting to login..."
 
 	
-	OUT=$(curl -v --insecure --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36" --data-raw "password=$password&username=$username&xhtmlLogon=$actionUrl" $actionUrl)
+	OUT=$(curl -v --insecure --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36" --data-raw "password=$password&username=$username&xhtmlLogon=https://www.btwifi.com:8443/tbbLogon" "https://www.btwifi.com:8443/tbbLogon")
 	
 	LOGON_SUCCESS=$(curl "https://www.btwifi.com:8443/home" --max-time 15 2>/dev/null | grep "accountLogoff")
 	if [ "$LOGON_SUCCESS" ]
